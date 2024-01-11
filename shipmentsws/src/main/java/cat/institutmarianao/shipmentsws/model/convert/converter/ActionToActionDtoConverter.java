@@ -12,7 +12,8 @@ import cat.institutmarianao.shipmentsws.model.dto.ActionDto;
 import cat.institutmarianao.shipmentsws.model.dto.AssignmentDto;
 import cat.institutmarianao.shipmentsws.model.dto.DeliveryDto;
 import cat.institutmarianao.shipmentsws.model.dto.ReceptionDto;
-
+import jakarta.persistence.Entity;
+@Entity
 @Component
 public class ActionToActionDtoConverter implements Converter<Action, ActionDto> {
 

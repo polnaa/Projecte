@@ -3,12 +3,26 @@ package cat.institutmarianao.shipmentsws.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
+@Entity
+@Table(name = "actions")
 /* Lombok */
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Action implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,16 +35,22 @@ public abstract class Action implements Serializable {
 	public enum Type {
 		RECEPTION, ASSIGNMENT, DELIVERY
 	}
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    protected Long id;
 
-	/* Lombok */
-	@EqualsAndHashCode.Include
-	protected Long id;
+    @Enumerated(EnumType.STRING) 
+    protected Type type;
 
-	protected Type type;
+    @ManyToOne
+    protected User performer;
 
-	protected User performer;
+    @Temporal(TemporalType.TIMESTAMP) 
+    protected Date date = new Date();
 
-	protected Date date = new Date();
+    @ManyToOne
+    protected Shipment shipment;
 
-	protected Shipment shipment;
 }

@@ -12,7 +12,8 @@ import cat.institutmarianao.shipmentsws.model.dto.CourierDto;
 import cat.institutmarianao.shipmentsws.model.dto.LogisticsManagerDto;
 import cat.institutmarianao.shipmentsws.model.dto.ReceptionistDto;
 import cat.institutmarianao.shipmentsws.model.dto.UserDto;
-
+import jakarta.persistence.Entity;
+@Entity
 @Component
 public class UserDtoToUserConverter implements Converter<UserDto, User> {
 

@@ -10,10 +10,12 @@ import cat.institutmarianao.shipmentsws.model.Action;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /* Swagger */
 @Schema(oneOf = { ReceptionDto.class, AssignmentDto.class, DeliveryDto.class }, discriminatorProperty = "type")
 /* Lombok */
+@Getter
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class ActionDto implements Serializable {

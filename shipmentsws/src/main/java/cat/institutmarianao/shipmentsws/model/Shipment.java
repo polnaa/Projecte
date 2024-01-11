@@ -5,12 +5,22 @@ import java.util.List;
 
 import org.hibernate.annotations.Formula;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
-
+import lombok.Getter;
+@Entity
+@Table(name = "shipments")
 /* Lombok */
+
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Shipment implements Serializable {
@@ -33,12 +43,14 @@ public class Shipment implements Serializable {
 
 	/* Lombok */
 	@EqualsAndHashCode.Include
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private Category category;
-
+	@Column(name="sender_id")
 	private Address sender;
-
+	@Column(name="recipient_id")
 	private Address recipient;
 
 	private Float weight;
@@ -61,6 +73,7 @@ public class Shipment implements Serializable {
 			+ " WHERE last_action.shipment_id=a.shipment_id AND last_action.shipment_id=id ))")
 	// Lombok
 	@Setter(AccessLevel.NONE)
+	@Transient
 	private Status status;
 
 }
