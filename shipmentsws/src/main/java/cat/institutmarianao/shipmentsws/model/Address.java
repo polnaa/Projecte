@@ -17,6 +17,7 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @Column(nullable = false)
     protected Long id;
 
     private String name;

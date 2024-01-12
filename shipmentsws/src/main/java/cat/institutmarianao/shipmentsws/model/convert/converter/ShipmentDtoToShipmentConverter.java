@@ -14,7 +14,6 @@ import cat.institutmarianao.shipmentsws.model.User;
 import cat.institutmarianao.shipmentsws.model.dto.ShipmentDto;
 import cat.institutmarianao.shipmentsws.services.UserService;
 import jakarta.persistence.Entity;
-@Entity
 @Component
 public class ShipmentDtoToShipmentConverter implements Converter<ShipmentDto, Shipment> {
 

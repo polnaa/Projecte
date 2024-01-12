@@ -3,6 +3,7 @@ package cat.institutmarianao.shipmentsws.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -39,18 +41,21 @@ public abstract class Action implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @Column(unique=true, nullable = false)
     protected Long id;
 
-    @Enumerated(EnumType.STRING) 
+    @Enumerated(EnumType.STRING)
+    @Column(name="type", nullable = false)
     protected Type type;
 
     @ManyToOne
     protected User performer;
 
-    @Temporal(TemporalType.TIMESTAMP) 
+    @Column(nullable = false, unique = true)
     protected Date date = new Date();
 
     @ManyToOne
+    @JoinColumn(name="shipment_id", referencedColumnName = "id", nullable=false)
     protected Shipment shipment;
 
 }

@@ -20,7 +20,6 @@ import cat.institutmarianao.shipmentsws.services.UserService;
 import jakarta.persistence.Entity;
 import lombok.Data;
 @Component
-@Entity
 public class ActionDtoToActionConverter implements Converter<ActionDto, Action> {
 	
 	@Autowired
@@ -60,13 +59,6 @@ public class ActionDtoToActionConverter implements Converter<ActionDto, Action> 
 		User performer = userService.getByUsername(actionDto.getPerformer());
 		action.setPerformer(performer);
 		// TODO Copy shipment
-		if (actionDto.getShipment() != null) {
-	        // Asumo que la clase Shipment tiene un constructor vacío y un método setId
-	        Shipment shipment = new Shipment();
-	        shipment.setId(actionDto.getShipment().getId());
-	        // Copiar otras propiedades de Shipment si es necesario
-
-	        action.setShipment(shipment);
-	    }
+		
 	}
 }

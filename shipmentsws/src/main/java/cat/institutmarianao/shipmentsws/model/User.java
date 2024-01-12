@@ -42,13 +42,16 @@ public abstract class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
+	@Column(nullable = false, unique = true)
 	protected String username;
 	
+	@Column(nullable = false, unique = true)
 	protected Role role;
-
+	
+	@Column(nullable = false)
 	protected String password;
 	
-	@Column(name="full_name")
+	@Column(name="full_name", nullable = false)
 	protected String fullName;
 
 	protected Integer extension;

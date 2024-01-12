@@ -45,12 +45,13 @@ public class Shipment implements Serializable {
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false)
 	private Long id;
-
+	@Column(nullable = false)
 	private Category category;
-	@Column(name="sender_id")
+	@Column(name="sender_id", unique = true)
 	private Address sender;
-	@Column(name="recipient_id")
+	@Column(name="recipient_id", unique = true)
 	private Address recipient;
 
 	private Float weight;

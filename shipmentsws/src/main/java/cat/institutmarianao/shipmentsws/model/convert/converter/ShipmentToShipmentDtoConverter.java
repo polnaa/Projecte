@@ -10,7 +10,6 @@ import cat.institutmarianao.shipmentsws.model.Shipment;
 import cat.institutmarianao.shipmentsws.model.convert.exception.ActionToTicketDtoConversionException;
 import cat.institutmarianao.shipmentsws.model.dto.ShipmentDto;
 import jakarta.persistence.Entity;
-@Entity
 @Component
 public class ShipmentToShipmentDtoConverter implements Converter<Shipment, ShipmentDto> {
 

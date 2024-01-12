@@ -24,8 +24,7 @@ public class Receptionist extends User implements Serializable {
 	public static final int MAX_PLACE = 100;
 	
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ofice_id", referencedColumnName = "id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Office office;
 
 	private String place;

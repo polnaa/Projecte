@@ -20,7 +20,7 @@ public class Courier extends User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "company_id", referencedColumnName = "id", nullable = false)
 	private Company company;
 }

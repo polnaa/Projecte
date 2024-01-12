@@ -2,6 +2,7 @@ package cat.institutmarianao.shipmentsws.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
@@ -22,6 +23,6 @@ import lombok.EqualsAndHashCode;
 public class Reception extends Action implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	@Column(nullable = false, unique = true)
 	private Integer trackingNumber;
 }
