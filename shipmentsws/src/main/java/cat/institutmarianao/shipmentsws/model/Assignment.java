@@ -3,6 +3,7 @@ package cat.institutmarianao.shipmentsws.model;
 import java.io.Serializable;
 
 import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -13,6 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 
+@Entity
 @DiscriminatorValue(Action.ASSIGNMENT)
 public class Assignment extends Action implements Serializable {
 
@@ -22,7 +24,6 @@ public class Assignment extends Action implements Serializable {
 	public static final int MAX_PRIORITAT = 3;
 	
 	@ManyToOne
-	
 	private Courier courier;
 
 	@Min(MIN_PRIORITAT)

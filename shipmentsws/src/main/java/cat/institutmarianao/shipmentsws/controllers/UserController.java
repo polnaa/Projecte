@@ -85,6 +85,7 @@ public class UserController {
 					ReceptionistDto.class, LogisticsManagerDto.class,
 					CourierDto.class }, discriminatorProperty = "role"))) }, description = "Users retrieved ok")
 	/**/
+
 	@GetMapping(value = "/find/all")
 	public List<UserDto> findAll(@RequestParam(value = "roles", required = false) Role[] roles,
 			@RequestParam(value = "fullName", required = false) String fullName) {

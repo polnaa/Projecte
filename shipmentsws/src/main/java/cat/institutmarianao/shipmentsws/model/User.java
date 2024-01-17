@@ -3,7 +3,11 @@ package cat.institutmarianao.shipmentsws.model;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,12 +16,16 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-@Entity
-@Table(name = "users")
+
 /* Lombok */
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
+@Entity
+@Table(name = "users")
+//TODO decirla a JPA qué campo mirar para el mapping
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public abstract class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -44,8 +52,8 @@ public abstract class User implements Serializable {
 	@EqualsAndHashCode.Include
 	@Column(nullable = false, unique = true)
 	protected String username;
-	
-	@Column(nullable = false, unique = true)
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, insertable=false, updatable=false)
 	protected Role role;
 	
 	@Column(nullable = false)

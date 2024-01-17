@@ -5,11 +5,18 @@ import java.util.List;
 
 import org.hibernate.annotations.Formula;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AccessLevel;
@@ -47,11 +54,18 @@ public class Shipment implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
 	private Long id;
-	@Column(nullable = false)
+	
+	@Column(nullable = false, name = "category")
+	@Enumerated(EnumType.STRING)
 	private Category category;
-	@Column(name="sender_id", unique = true)
+	
+	@ManyToOne
+	@JoinColumn(name = "sender_id", referencedColumnName = "id", nullable = false)
 	private Address sender;
-	@Column(name="recipient_id", unique = true)
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "recipient_id", referencedColumnName = "id", nullable = false)
 	private Address recipient;
 
 	private Float weight;
@@ -63,7 +77,9 @@ public class Shipment implements Serializable {
 	private Boolean fragile;
 
 	private String note;
-
+	
+	@OneToMany(mappedBy = "shipment")
+	@Column(nullable = false)
 	private List<Action> tracking;
 
 	/* Hibernate */
