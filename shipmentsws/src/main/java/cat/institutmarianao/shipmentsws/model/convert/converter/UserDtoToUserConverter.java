@@ -1,6 +1,7 @@
 package cat.institutmarianao.shipmentsws.model.convert.converter;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +13,13 @@ import cat.institutmarianao.shipmentsws.model.dto.CourierDto;
 import cat.institutmarianao.shipmentsws.model.dto.LogisticsManagerDto;
 import cat.institutmarianao.shipmentsws.model.dto.ReceptionistDto;
 import cat.institutmarianao.shipmentsws.model.dto.UserDto;
-import jakarta.persistence.Entity;
+import cat.institutmarianao.shipmentsws.services.OfficeService;
+
 @Component
 public class UserDtoToUserConverter implements Converter<UserDto, User> {
+
+	@Autowired
+	OfficeService officeService;
 
 	@Override
 	public User convert(UserDto userDto) {
@@ -23,7 +28,7 @@ public class UserDtoToUserConverter implements Converter<UserDto, User> {
 			LogisticsManager logisticsManager = new LogisticsManager();
 			copyCommonProperties(logisticsManagerDto, logisticsManager);
 
-			// TODO Copy office
+			logisticsManager.setOffice(officeService.getById(logisticsManagerDto.getOfficeId()));
 			logisticsManager.setPlace(logisticsManagerDto.getPlace());
 
 			return logisticsManager;
@@ -32,7 +37,7 @@ public class UserDtoToUserConverter implements Converter<UserDto, User> {
 			Receptionist receptionist = new Receptionist();
 			copyCommonProperties(receptionistDto, receptionist);
 
-			// TODO Copy office
+			receptionist.setOffice(officeService.getById(receptionistDto.getOfficeId()));
 			receptionist.setPlace(receptionistDto.getPlace());
 			return receptionist;
 		}
