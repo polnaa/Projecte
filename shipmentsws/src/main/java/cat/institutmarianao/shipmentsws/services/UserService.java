@@ -12,7 +12,7 @@ public interface UserService {
 
 	List<User> findAll(Role[] roles, String fullName);
 
-	User getByUsername(@NotBlank String username);
+	User getByUsername(@NotBlank String shipment);
 
 	User save(@NotNull @Valid User user);
 
