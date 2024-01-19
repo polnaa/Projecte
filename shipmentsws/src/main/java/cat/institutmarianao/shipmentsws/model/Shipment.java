@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.hibernate.annotations.Formula;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,13 +15,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
-import lombok.Getter;
+
 @Entity
 @Table(name = "shipments")
 /* Lombok */
@@ -54,16 +53,15 @@ public class Shipment implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
 	private Long id;
-	
+
 	@Column(nullable = false, name = "category")
 	@Enumerated(EnumType.STRING)
 	private Category category;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "sender_id", referencedColumnName = "id", nullable = false)
 	private Address sender;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "recipient_id", referencedColumnName = "id", nullable = false)
 	private Address recipient;
@@ -77,9 +75,10 @@ public class Shipment implements Serializable {
 	private Boolean fragile;
 
 	private String note;
-	
+
 	@OneToMany(mappedBy = "shipment")
 	@Column(nullable = false)
+	@OrderBy("date DESC")
 	private List<Action> tracking;
 
 	/* Hibernate */

@@ -176,9 +176,14 @@ public class ShipmentController {
 	@Validated(OnShipmentCreate.class)
 	public ShipmentDto save(
 			@Parameter(schema = @Schema(implementation = ShipmentDto.class)) @RequestBody @Valid ShipmentDto shipmentDto) {
-
-		Shipment savedShipment = shipmentService.save(convertAndEncodePassword(shipmentDto));
-		return conversionService.convert(savedShipment, ShipmentDto.class);
+		/*
+		 * Shipment savedShipment = shipmentService.save(ShipmentDto)); return
+		 * conversionService.convert(savedShipment, ShipmentDto.class); return
+		 * conversionService.convert(userService.save(convertAndEncodePassword(userDto))
+		 * , UserDto.class);
+		 */
+		return conversionService.convert(shipmentService.save(conversionService.convert(shipmentDto, Shipment.class)),
+				ShipmentDto.class);
 	}
 
 	/* Swagger */
@@ -206,16 +211,7 @@ public class ShipmentController {
 	@DeleteMapping("/delete/by/id/{shipment_id}")
 	public void deleteById(@PathVariable("shipment_id") @Positive Long shipmentId) {
 
-		shipmentService.deleteByUsername(shipmentId);
-	}
-
-	private Shipment convertAndEncodePassword(ShipmentDto shipmentDto) {
-
-		String rawPassword = shipmentDto.getPassword();
-		if (rawPassword != null) {
-			shipmentDto.setPassword(passwordEncoder.encode(rawPassword));
-		}
-		return conversionService.convert(shipmentDto, Shipment.class);
+		shipmentService.deleteById(shipmentId);
 	}
 
 }
